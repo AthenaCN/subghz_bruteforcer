@@ -591,6 +591,7 @@ static const char* subbrute_protocol_file_types[] = {
     [SMC5326FileProtocol] = "SMC5326",
     [UNILARMFileProtocol] = "SMC5326",
     [PT2260FileProtocol] = "Princeton",
+    [PT2262FileProtocol] = "Princeton",
     [HoneywellFileProtocol] = "Honeywell",
     [HoltekFileProtocol] = "Holtek_HT12X",
     [LegrandFileProtocol] = "Legrand",
@@ -751,17 +752,17 @@ void subbrute_protocol_create_candidate_for_default(
     } else if(file == PT2262FileProtocol) {
         const uint8_t lut_pt2262[] = {0x00, 0x01, 0x03}; // 00, 01, 11
         uint64_t gate_pt2262 = 0x03; // 11 default value 0001
-        unit8_t opencode_vel = opencode;
-        if(opencode_vel == 0){
+        unit8_t opencode_var = opencode_values;
+        if(opencode_var == 0){
             gate_pt2262 = 0x03; // 0001 PT2262常见抬杆码3
         }     
-        if(opencode_vel == 1){
+        if(opencode_var == 1){
             gate_pt2262 = 0x0C; // 0010 PT2262常见抬杆码12
         }
-        if(opencode_vel == 2){
+        if(opencode_var == 2){
             gate_pt2262 = 0x30; // 0100 PT2262常见抬杆码48
         }     
-        if(opencode_vel == 3){
+        if(opencode_var == 3){
             gate_pt2262 = 0xC0; // 1000 PT2262常见抬杆码192
         } 
         
