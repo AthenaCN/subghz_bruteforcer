@@ -367,6 +367,50 @@ const SubBruteProtocol subbrute_protocol_pt2260_24bit_433 = {
     .file = PT2260FileProtocol};
 
 /**
+ * PT2262 (Princeton) 24bit 315MHz
+ */
+const SubBruteProtocol subbrute_protocol_pt2262_24bit_315 = {
+    .frequency = 315000000,
+    .bits = 24,
+    .te = 286,
+    .repeat = 4,
+    .preset = FuriHalSubGhzPresetOok650Async,
+    .file = PT2262FileProtocol};
+
+/**
+ * PT2262 (Princeton) 24bit 330MHz
+ */
+const SubBruteProtocol subbrute_protocol_pt2262_24bit_330 = {
+    .frequency = 330000000,
+    .bits = 24,
+    .te = 286,
+    .repeat = 4,
+    .preset = FuriHalSubGhzPresetOok650Async,
+    .file = PT2262FileProtocol};
+
+/**
+ * PT2262 (Princeton) 24bit 390MHz
+ */
+const SubBruteProtocol subbrute_protocol_pt2262_24bit_390 = {
+    .frequency = 390000000,
+    .bits = 24,
+    .te = 286,
+    .repeat = 4,
+    .preset = FuriHalSubGhzPresetOok650Async,
+    .file = PT2262FileProtocol};
+
+/**
+ * PT2262 (Princeton) 24bit 433MHz
+ */
+const SubBruteProtocol subbrute_protocol_pt2262_24bit_433 = {
+    .frequency = 433920000,
+    .bits = 24,
+    .te = 286,
+    .repeat = 4,
+    .preset = FuriHalSubGhzPresetOok650Async,
+    .file = PT2262FileProtocol};
+
+/**
  * Holtek FM 12bit 433MHz
  */
 const SubBruteProtocol subbrute_protocol_holtek_12bit_433 = {
@@ -466,6 +510,10 @@ static const char* subbrute_protocol_names[] = {
     [SubBruteAttackPT226024bit330] = "PT2260 24bit 330MHz",
     [SubBruteAttackPT226024bit390] = "PT2260 24bit 390MHz",
     [SubBruteAttackPT226024bit433] = "PT2260 24bit 433MHz",
+    [SubBruteAttackPT226224bit315] = "PT2262 24bit 315MHz",
+    [SubBruteAttackPT226224bit330] = "PT2262 24bit 330MHz",
+    [SubBruteAttackPT226224bit390] = "PT2262 24bit 390MHz",
+    [SubBruteAttackPT226224bit433] = "PT2262 24bit 433MHz",
     [SubBruteAttackLoadFile] = "BF existing dump",
     [SubBruteAttackTotalCount] = "Total Count",
 };
@@ -519,6 +567,10 @@ const SubBruteProtocol* subbrute_protocol_registry[] = {
     [SubBruteAttackPT226024bit330] = &subbrute_protocol_pt2260_24bit_330,
     [SubBruteAttackPT226024bit390] = &subbrute_protocol_pt2260_24bit_390,
     [SubBruteAttackPT226024bit433] = &subbrute_protocol_pt2260_24bit_433,
+    [SubBruteAttackPT226224bit315] = &subbrute_protocol_pt2262_24bit_315,
+    [SubBruteAttackPT226224bit330] = &subbrute_protocol_pt2262_24bit_330,
+    [SubBruteAttackPT226224bit390] = &subbrute_protocol_pt2262_24bit_390,
+    [SubBruteAttackPT226224bit433] = &subbrute_protocol_pt2262_24bit_433,
     [SubBruteAttackLoadFile] = &subbrute_protocol_load_file};
 
 static const char* subbrute_protocol_file_types[] = {
@@ -699,7 +751,7 @@ void subbrute_protocol_create_candidate_for_default(
     } else if(file == PT2262FileProtocol) {
         const uint8_t lut_pt2262[] = {0x00, 0x01, 0x03}; // 00, 01, 11
         uint64_t gate_pt2262 = 0x03; // 11 default value 0001
-        unit8_t opencode_vel = opencode
+        unit8_t opencode_vel = opencode;
         if(opencode_vel == 0){
             gate_pt2262 = 0x03; // 0001 PT2262常见抬杆码3
         }     
@@ -918,7 +970,11 @@ uint64_t
         attack_type == SubBruteAttackPT226024bit315 ||
         attack_type == SubBruteAttackPT226024bit330 ||
         attack_type == SubBruteAttackPT226024bit390 ||
-        attack_type == SubBruteAttackPT226024bit433) {
+        attack_type == SubBruteAttackPT226024bit433 ||
+        attack_type == SubBruteAttackPT226224bit315 ||
+        attack_type == SubBruteAttackPT226224bit330 ||
+        attack_type == SubBruteAttackPT226224bit390 ||
+        attack_type == SubBruteAttackPT226224bit433) {
         max_value = 6561;
     } else {
         FuriString* max_value_s;
