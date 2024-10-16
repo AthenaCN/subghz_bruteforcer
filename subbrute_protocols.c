@@ -696,6 +696,38 @@ void subbrute_protocol_create_candidate_for_default(
         for(int i = 0; i < 8; i++) {
             p[i] = (uint8_t)(step >> 8 * (7 - i)) & 0xFF;
         }
+    } else if(file == PT2262FileProtocol) {
+        const uint8_t lut_pt2262[] = {0x00, 0x01, 0x03}; // 00, 01, 11
+        uint64_t gate_pt2262 = 0x03; // 11 default value 0001
+        unit8_t opencode_vel = opencode
+        if(opencode_vel == 0){
+            gate_pt2262 = 0x03; // 0001 PT2262常见抬杆码3
+        }     
+        if(opencode_vel == 1){
+            gate_pt2262 = 0x0C; // 0010 PT2262常见抬杆码12
+        }
+        if(opencode_vel == 2){
+            gate_pt2262 = 0x30; // 0100 PT2262常见抬杆码48
+        }     
+        if(opencode_vel == 3){
+            gate_pt2262 = 0xC0; // 1000 PT2262常见抬杆码192
+        } 
+        
+        for(size_t j = 0; j < 8; j++) {
+            total |= lut_pt2262[step % 3] << (2 * j);
+            double sub_step = (double)step / 3;
+            step = (uint64_t)floor(sub_step);
+        }
+        total <<= 8;
+        total |= gate_pt2262;
+
+        for(int i = 0; i < 8; i++) {
+            p[i] = (uint8_t)(total >> 8 * (7 - i)) & 0xFF;
+        }
+    } else {
+        for(int i = 0; i < 8; i++) {
+            p[i] = (uint8_t)(step >> 8 * (7 - i)) & 0xFF;
+        }
     }
 
     size_t size = sizeof(uint64_t);
