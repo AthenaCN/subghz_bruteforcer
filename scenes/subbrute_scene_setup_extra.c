@@ -180,6 +180,10 @@ static void setup_extra_te_callback(VariableItem* item) {
     }
 }
 
+static void setup_extra_opencode_callback(void* context, uint8_t index);
+
+    const uint8_t index = variable_item_get_current_value_index(item);
+
 static void subbrute_scene_setup_extra_init_var_list(SubBruteState* instance, bool on_extra) {
     furi_assert(instance);
     char str[6] = {0};
