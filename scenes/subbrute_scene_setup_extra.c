@@ -180,12 +180,11 @@ static void setup_extra_te_callback(VariableItem* item) {
     }
 }
 
-static void setup_extra_opencode_callback(void* context, uint8_t index) {
-    SubBruteState* instance = variable_item_get_context();
-    const uint32_t index = variable_item_get_current_value_index(item);
-    variable_item_set_current_value_text(item, opencode_names[current_value_index]);
-    = opencode_values[current_value_index];
-    = subbrute_worker_set_opencode;
+static void setup_extra_opencode_callback(VariableItem* item) {
+    SubBruteState* instance = variable_item_get_context(item);
+    const uint8_t value_index = variable_item_get_current_value_index(item);
+    variable_item_set_current_value_text(item, opencode_names[value_index]);
+    value_index = subbrute_worker_set_opencode(instance->worker);
 }
 
 const char* const opencode_name[] = {"0001","0010","0100","1000"};
