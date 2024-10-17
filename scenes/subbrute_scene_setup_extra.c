@@ -202,8 +202,9 @@ static void subbrute_scene_setup_extra_init_var_list(SubBruteState* instance, bo
     variable_item_list_reset(var_list);
 
     const unit8_t attack_PT2262 = subrute_worker_get_attacknow(instance->worker);
+    
     if(attack_PT2262 == 17) {
-        unit_t value_index;
+        unit8_t value_index;
         item = variable_item_list_add(var_list, "Button", 4, setup_extra_opencode_callback, instance);
         value_index = subbrute_worker_get_opencode(instance->worker);
         variable_item_set_current_value_index(item, value_index);
