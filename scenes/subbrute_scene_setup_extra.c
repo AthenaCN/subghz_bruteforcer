@@ -185,6 +185,8 @@ static void setup_extra_opencode_callback(void* context, uint8_t index);
     const uint32_t index = variable_item_get_current_value_index(item);
     variable_item_set_current_value_text(item, opencode_names[current_value_index]);
 
+const char* const opencode_name[] = {"0001","0010","0100","1000"};
+const unit32_t opencode_values[COUNT_OF(opencode_names)] = {0,1,2,3};
 
 static void subbrute_scene_setup_extra_init_var_list(SubBruteState* instance, bool on_extra) {
     furi_assert(instance);
@@ -198,6 +200,15 @@ static void subbrute_scene_setup_extra_init_var_list(SubBruteState* instance, bo
     VariableItemList* var_list = instance->var_list;
 
     variable_item_list_reset(var_list);
+
+    const unit8_t attack_PT2262 = subrute_worker_get_attacknow(instance->worker);
+    if(attack_PT2262 == 17) {
+        unit_t value_index;
+        item = variable_item_list_add(var_list, "Button", 4, setup_extra_opencode_callback, instance);
+        value_index = subbrute_worker_get_opencode(instance->worker);
+        variable_item_set_current_value_index(item, value_index);
+        variable_item_set_current_value_text(item, opencode_names[value_index]);
+    }
 
     item = variable_item_list_add(var_list, "TimeDelay", 3, setup_extra_td_callback, instance);
     snprintf(&str[0], 5, "%d", subbrute_worker_get_timeout(instance->worker));
