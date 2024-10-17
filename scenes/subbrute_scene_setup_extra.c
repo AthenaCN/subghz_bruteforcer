@@ -181,8 +181,10 @@ static void setup_extra_te_callback(VariableItem* item) {
 }
 
 static void setup_extra_opencode_callback(void* context, uint8_t index);
+    SubBruteState* instance = variable_item_get_context();
+    const uint32_t index = variable_item_get_current_value_index(item);
+    variable_item_set_current_value_text(item, opencode_names[current_value_index]);
 
-    const uint8_t index = variable_item_get_current_value_index(item);
 
 static void subbrute_scene_setup_extra_init_var_list(SubBruteState* instance, bool on_extra) {
     furi_assert(instance);
