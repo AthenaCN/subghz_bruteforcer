@@ -462,6 +462,18 @@ void subbrute_worker_set_te(SubBruteWorker* instance, uint32_t te) {
     instance->te = te;
 }
 
+uint8_t subbrute_worker_get_opencode(SubBruteWorker* instance) {
+    return instance->opencode;
+}
+
+void subbrute_worker_set_opencode(SubBruteWorker* instance, uint8_t opencode) {
+    instance->opencode = opencode;
+}
+
+uint8_t subbrute_worker_get_attacknow(SubBruteWorker* instance) {
+    return instance->attacknow;
+}
+
 bool subbrute_worker_is_tx_allowed(SubBruteWorker* instance, uint32_t value) {
     furi_assert(instance);
     bool res = false;
