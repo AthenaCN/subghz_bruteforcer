@@ -467,7 +467,7 @@ uint8_t subbrute_worker_get_opencode(SubBruteWorker* instance) {
 }
 
 void subbrute_worker_set_opencode(SubBruteWorker* instance, uint8_t opencode) {
-    instance->opencode = opencode;
+    instance->opencode = opencode_values;
 }
 
 uint8_t subbrute_worker_get_attacknow(SubBruteWorker* instance) {
